@@ -106,9 +106,9 @@ fun ToDoApps() {
 fun Header(modifier: Modifier = Modifier) {
     Row(
         modifier
-            .background(Color(0xFF40064a))
+//            .background(Color(0xFF40064a))
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, top = 16.dp)
         ,
         horizontalArrangement = Arrangement.Start
     ) {
@@ -118,7 +118,7 @@ fun Header(modifier: Modifier = Modifier) {
             fontFamily = fontFamily,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = Color(0xFF40064a)
         )
     }
 }
