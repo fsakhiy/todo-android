@@ -28,9 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -40,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -87,10 +84,6 @@ fun ToDoApps() {
         mutableStateOf("")
     }
 
-    var count by remember {
-        mutableStateOf(0)
-    }
-
     var toDoList = remember { mutableStateListOf<String>() }
 
     Column(
@@ -100,27 +93,13 @@ fun ToDoApps() {
 
     ) {
         Header()
-        Column(
-            modifier = Modifier
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
 
-        ) {
-            OutlinedTextField(
-                value = inputValue,
-                onValueChange = { inputValue = it },
-                label = { Text("enter something in mind...")},
-                textStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.Bold, fontFamily = fontFamily,),
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-            Button(onClick = {  if(inputValue != "") toDoList.add(inputValue)  },
-                modifier = Modifier
-                    .align(Alignment.End)
-            ) {
-                Text("Add")
-            }
-        }
+        ToDoInput(
+            stateValue = inputValue,
+            inputChange = { inputValue = it},
+            addToList = {toDoList.add(inputValue)}
+        )
+
         Text(
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp),
@@ -129,6 +108,7 @@ fun ToDoApps() {
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp
         )
+
         LazyColumn (
             modifier = Modifier
                 .padding(10.dp),
@@ -141,6 +121,33 @@ fun ToDoApps() {
         }
     }
 }
+
+@Composable
+fun ToDoInput(stateValue: String, inputChange: (String) -> Unit, addToList: (String) -> Unit)  {
+    Column(
+        modifier = Modifier
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+
+    ) {
+        OutlinedTextField(
+            value = stateValue,
+            onValueChange = { inputChange(it) },
+            label = { Text(text = stringResource(R.string.input_prompt))},
+            textStyle = TextStyle(color = Color.Black, fontWeight = FontWeight.Bold, fontFamily = fontFamily,),
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+        Button(onClick = {  if(stateValue != "") addToList(stateValue)  },
+            modifier = Modifier
+                .align(Alignment.End)
+        ) {
+            Text("Add")
+        }
+    }
+
+}
+
 
 @Composable
 fun ToDoCard(toDo: String, deleteFn: (String) -> Unit) {
@@ -194,6 +201,24 @@ fun Header(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
+    ToDoTheme{
+//        Header()
+        ToDoCard(toDo = "ngoding") {
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HeaderPreview() {
     ToDoTheme {
+        Header()
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun ToDoInputPreview() {
+    ToDoTheme {
+
     }
 }
