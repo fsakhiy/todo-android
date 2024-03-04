@@ -9,14 +9,21 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -33,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -128,32 +136,38 @@ fun ToDoApps() {
         ) {
             items(toDoList) {
                 item ->
-                ToDoCard(toDo = item)
+                ToDoCard(toDo = item, deleteFn = { toDoList.remove(item) })
             }
         }
     }
 }
 
 @Composable
-fun ToDoCard(toDo: String) {
+fun ToDoCard(toDo: String, deleteFn: (String) -> Unit) {
     Row(
         modifier = Modifier
+//            .fillMaxWidth()
             .fillMaxWidth()
             .clip(RoundedCornerShape(15))
 //            .border(shape = RoundedCornerShape(20), border = BorderStroke(1.dp, Color.Black))
-            .background(Color(0xFF6650a4))
+            .background(Color(0xFF6650a4)),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            modifier = Modifier
-//                .border(shape = RoundedCornerShape(20), border = BorderStroke(1.dp, Color.Black))
-                .padding(16.dp)
-                .fillMaxWidth()
-            ,
-            text = toDo,
-            fontSize = 17.sp,
-            fontFamily = fontFamily,
-            color = Color.White
-        )
+        Column() {
+            Text(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(0.9f)
+                ,
+                text = toDo,
+                fontSize = 17.sp,
+                fontFamily = fontFamily,
+                color = Color.White
+            )
+        }
+        IconButton(onClick = { deleteFn(toDo) }, enabled = true) {
+            Icon(Icons.Outlined.Delete, contentDescription = null, tint = Color.White)
+        }
     }
 }
 @Composable
@@ -181,6 +195,6 @@ fun Header(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ToDoTheme {
-        ToDoCard("nyolok cewek gweh")
+//        ToDoCard("aku pengen nyolok cewek gweh sampe dia bilang ahh ahh ahh")
     }
 }
