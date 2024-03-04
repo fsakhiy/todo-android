@@ -195,6 +195,5 @@ fun Header(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ToDoTheme {
-//        ToDoCard("aku pengen nyolok cewek gweh sampe dia bilang ahh ahh ahh")
     }
 }
