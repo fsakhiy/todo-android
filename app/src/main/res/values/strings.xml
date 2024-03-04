@@ -2,5 +2,6 @@
     <string name="app_name">ToDo</string>
     <string name="header">ToDo</string>
     <string name="todo_title">Things to do:</string>
+    <string name="input_prompt">Enter something in mind</string>
 
 </resources>
