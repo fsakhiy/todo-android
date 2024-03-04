@@ -116,7 +116,7 @@ fun ToDoApps() {
         Text(
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp),
-            text = "Things to do:",
+            text = stringResource(id = R.string.todo_title),
             fontFamily = fontFamily,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp
